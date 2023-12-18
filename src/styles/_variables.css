@@ -1,0 +1,51 @@
+:root {
+    --background: #fbfbf6;
+    --page-background: var(--background);
+    --highlight-background: #f3f3f3;
+    --primary: #f07f0e;
+    --text-color: #2e2e2e;
+
+
+    --font-size-4xl: 5rem;
+    --font-size-3xl: 3rem;
+    --font-size-xxl: 2.6rem;
+    --font-size-xl: 1.9rem;
+    --font-size-l: 1.4rem;
+    --font-size-m: 1rem;
+    --font-size-s: 0.9rem;
+
+    --main-column-size: 2.6fr;
+
+    --page-width: 992px;
+    --page-height: auto;
+    --page-margin: 2rem;
+
+    font-size: 13px;
+}
+
+@media (max-width: 1050px) {
+    :root {
+        --page-width: 768px;
+    }
+}
+
+@media print {
+    :root {
+        --page-background: white;
+        --background: white;
+        --highlight-background: #fafafa;
+        --primary: #f07f0e;
+        --text-color: black;
+
+        --page-width: 21cm;
+        --page-height: 29.7cm;
+        --page-margin: 13.5mm;
+
+        font-size: 10px;
+    }
+}
+
+@page {
+    size: A4;
+    margin: 13.5mm 13.5mm 13.5mm 13.5mm; /* var(--page-margin) but css variables are not supported */
+}

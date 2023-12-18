@@ -1,0 +1,86 @@
+.timeline {
+    --timeline-width: 0.27rem;
+    --timeline-spacing-between: 2rem;
+    --timeline-spacing-inner: 1rem;
+    --timeline-spacing-right: 2.5rem;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--timeline-spacing-inner);
+    padding-bottom: calc(var(--timeline-width) / 2);
+
+    text-align: justify;
+    hyphens: manual;
+}
+
+.timeline ul strong {
+    font-weight: 500;
+    hyphens: none;
+}
+
+.timeline h3 {
+    margin: -0.25rem 0 0 calc(var(--timeline-spacing-right));
+}
+
+.timeline h3 em {
+    font-size: 90%;
+    font-weight: 400;
+}
+
+.timeline ul {
+    margin-left: var(--timeline-spacing-right);
+    margin-bottom: var(--timeline-spacing-between);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.timeline p {
+    margin-top: auto;
+}
+
+.timeline p:first-child {
+    margin-top: 0;
+}
+
+.timeline p {
+    position: relative;
+    margin-bottom: 0;
+    padding-left: calc(var(--timeline-spacing-right));
+    line-height: 1;
+}
+
+.timeline p em {
+    opacity: 0.7;
+    font-style: normal;
+    font-size: 90%;
+    margin-left: 1em;
+}
+
+.timeline > :not(p)::before {
+    background-color: var(--primary);
+
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--timeline-width);
+}
+
+.timeline > p::before {
+    background-color: var(--primary);
+
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: calc(var(--timeline-width) * 4);
+    height: calc(var(--timeline-width) * 4);
+    transform: translate(calc(-50% + var(--timeline-width) / 2), calc(-50%));
+    border-radius: 50%;
+    box-shadow: 0 0 0 var(--timeline-width) var(--page-background);
+    z-index: 1;
+}

@@ -1,0 +1,69 @@
+.info {
+    margin-bottom: var(--page-margin);
+
+    display: grid;
+    grid-template-columns: var(--main-column-size) 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.has-picture {
+    grid-template-columns: var(--main-column-size) 1fr 0.8fr;
+}
+
+.title {
+    text-align: left;
+    opacity: 1;
+    font-size: var(--font-size-4xl);
+    font-weight: 500;
+    margin-top: 0;
+    line-height: 0.75;
+    margin-bottom: 2rem;
+}
+
+.subtitle {
+    font-size: var(--font-size-xxl);
+    font-weight: 600;
+    opacity: 0.5;
+}
+
+.intro {
+    font-size: var(--font-size-m);
+    text-align: justify;
+    hyphens: manual;
+    grid-column: 1 / -1;
+}
+
+.intro p {
+    margin-bottom: 1rem;
+}
+
+.info ul {
+    white-space: nowrap;
+    margin-left: auto;
+}
+
+.info li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.icon {
+    width: 1em;
+    margin-right: 1em;
+    color: var(--primary);
+}
+
+.picture {
+    aspect-ratio: 4/5;
+    padding: 0.7rem;
+    border: 2px solid var(--primary);
+}
+
+.picture > div {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}

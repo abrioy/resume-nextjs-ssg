@@ -1,0 +1,12 @@
+.tags em {
+    font-style: normal;
+    font-weight: 500;
+}
+
+.element.first {
+    margin-left: 0;
+}
+
+.element.light {
+    font-weight: 400;
+}

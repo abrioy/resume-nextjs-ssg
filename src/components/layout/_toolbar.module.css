@@ -1,0 +1,69 @@
+.toolbar {
+    position: sticky;
+    top: -1px;
+    padding: 1rem 0;
+    margin-bottom: 1.5rem;
+    z-index: 10;
+
+    background: var(--background);
+    border-radius: 0 0 0.2rem 0.2rem;
+    box-shadow: 0 0.1rem 0.5rem var(--background);
+
+    list-style: none;
+    line-height: 1;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.toolbar li {
+    flex-basis: var(--font-size-xl);
+}
+
+.toolbar a {
+    color: var(--primary);
+    transition: filter ease-out 200ms;
+    filter: brightness(110%) contrast(95%) opacity(75%);
+}
+
+.toolbar a:hover {
+    color: var(--primary);
+    filter: none;
+}
+
+.name {
+    font-weight: 700;
+    font-size: var(--font-size-l);
+}
+
+.title {
+    font-weight: 600;
+    font-size: var(--font-size-m);
+    margin-left: 1rem;
+}
+
+.desc {
+    font-weight: 600;
+    font-size: var(--font-size-s);
+}
+
+
+.name, .title, .desc {
+    transition: opacity ease-out 200ms;
+    opacity: 0;
+}
+
+.pinned .name {
+    opacity: 1;
+}
+
+.pinned .title, .pinned .desc {
+    opacity: 0.5;
+}
+
+@media print {
+    .toolbar {
+        display: none;
+    }
+}

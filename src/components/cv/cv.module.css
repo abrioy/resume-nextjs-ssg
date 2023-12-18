@@ -1,0 +1,23 @@
+.cv h2::before {
+    content: "";
+    background: var(--primary);
+    width: 2cm;
+    height: 0.15cm;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.3cm;
+}
+
+.cv h2 + p {
+    margin-bottom: 2rem;
+}
+
+header.cv {
+    display: none;
+}
+
+@media print {
+    header.cv {
+        display: initial;
+    }
+}

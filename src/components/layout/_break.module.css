@@ -1,0 +1,11 @@
+@media print {
+    .break {
+        display: none;
+    }
+}
+
+.break {
+    margin: 2cm;
+    opacity: 0.15;
+    border-color: var(--primary);
+}

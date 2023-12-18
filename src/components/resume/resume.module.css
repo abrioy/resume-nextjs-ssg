@@ -1,0 +1,68 @@
+main.resume {
+    flex: 1;
+}
+
+.resume .body {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr var(--main-column-size);
+    gap: var(--page-margin);
+}
+
+.resume table {
+    margin-top: -1rem;
+}
+
+.resume p strong,
+.resume td strong {
+    font-weight: 600;
+}
+
+.resume td em {
+    font-weight: 600;
+    font-style: normal;
+    font-size: var(--font-size-s);
+}
+
+.skills {
+    font-size: var(--font-size-m);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.skills h3 {
+    margin-top: 0;
+    color: var(--primary);
+}
+
+.skills ul {
+    padding: 0;
+    list-style: none;
+}
+
+.skills ul p {
+    margin-bottom: 0;
+}
+
+.skills ul > li:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+.skills .secondary ul > li:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.skills ul ul ul {
+    padding-left: 3rem;
+}
+
+.resume td {
+    padding: 1rem 0 0 0;
+    vertical-align: top;
+}
+
+.resume td:first-child {
+    padding-right: 1rem;
+}

@@ -1,0 +1,33 @@
+.progress {
+    --progress-height: var(--font-size-s);
+    --score: 0;
+    height: var(--progress-height);
+    width: 100%;
+    border-radius: calc(var(--progress-height) / 2);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: var(--primary);
+    opacity: 0.2;
+}
+
+.progress::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: var(--primary);
+    transform: scaleX(var(--score));
+    transform-origin: left;
+    opacity: 0.8;
+}

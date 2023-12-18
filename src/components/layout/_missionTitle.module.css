@@ -1,0 +1,17 @@
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 27px 0 -25px var(--primary);
+    padding-bottom: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.title::before {
+    content: none !important;
+}
+
+.title > :last-child {
+    font-weight: 300;
+    font-size: 80%;
+}

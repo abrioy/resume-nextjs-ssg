@@ -1,0 +1,9 @@
+@media print {
+    .container[data-show-children="resume"] > :not([data-show-when="resume"]) {
+        display: none;
+    }
+
+    .container[data-show-children="cv"] > :not([data-show-when="cv"]) {
+        display: none;
+    }
+}
