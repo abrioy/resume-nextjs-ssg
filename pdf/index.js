@@ -7,13 +7,17 @@ import * as http from "http";
 import { mkdirSync } from "fs";
 import { publicInfo } from "../src/content/public-info.js";
 
+const basepath = process.argv[2] || "";
+
 const BUILD_PATH = "./out";
 const OUTPUT_PATH = `${BUILD_PATH}/pdf`;
 const PORT = 3001;
-const APPLICATION_URL = `http://localhost:${PORT}`;
+const APPLICATION_URL = `http://localhost:${PORT}/${basepath}`;
 
 function serveApplication() {
+  const basepathRegex = new RegExp(`^/${basepath}(/|$)`);
   const server = http.createServer((request, response) => {
+    request.url = request.url.replace(basepathRegex, "/");
     return serveHandler(request, response, {
       public: BUILD_PATH,
     });

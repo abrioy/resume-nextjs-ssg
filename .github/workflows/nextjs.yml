@@ -1,0 +1,50 @@
+name: Deploy to Pages
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: volta-cli/action@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Set basepath
+        run: |
+          set -x
+          sed "s#basePath: ''#basePath: '/${{ github.event.repository.name }}'#" -i next.config.mjs
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Build with Next.js
+        run: yarn build
+      - name: Build pdf
+        run: yarn build:pdf ${{ github.event.repository.name }}
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v3

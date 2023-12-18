@@ -28,6 +28,8 @@ const nextConfig = {
         includePaths: [path.join(__dirname, 'styles')],
     },
 
+    basePath: '',
+
     images: {
         unoptimized: true,
     },
