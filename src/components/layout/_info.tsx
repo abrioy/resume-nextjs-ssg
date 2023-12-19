@@ -9,87 +9,68 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./_info.module.css";
 import { ReactElement } from "react";
 import Image from "next/image";
+import { PrivateInfo, PublicInfo } from "@/src/model/info";
 
 export default function Info({
   isPublic,
   isAnonymous,
-  anonymousName,
-  name,
-  title,
-  city,
-  email,
-  linkedIn,
-  github,
-  phoneInt,
-  phone,
-  address1,
-  address2,
-  pictureUrl,
+  publicInfo,
+  privateInfo,
   children,
 }: {
   isPublic: boolean;
   isAnonymous: boolean;
-  anonymousName: string;
-  name: string;
-  title: string;
-  city?: string;
-  email?: string;
-  linkedIn?: string;
-  github?: string;
-  phoneInt?: string;
-  phone?: string;
-  address1?: string;
-  address2?: string;
-  pictureUrl?: string;
+  publicInfo: PublicInfo;
+  privateInfo: PrivateInfo;
   children?: ReactElement | ReactElement[];
 }) {
   let elements = [];
   if (!isPublic && !isAnonymous) {
-    if (email) {
+    if (privateInfo.email) {
       elements.push(
         <li key="email">
           <FontAwesomeIcon className={styles.icon} icon={faEnvelope} />{" "}
-          <a href={"mailto:" + email}>{email}</a>
+          <a href={"mailto:" + privateInfo.email}>{privateInfo.email}</a>
         </li>,
       );
     }
-    if (phone && phoneInt) {
+    if (privateInfo.phone && privateInfo.phoneInt) {
       elements.push(
         <li key="phone">
           <FontAwesomeIcon className={styles.icon} icon={faPhone} />{" "}
-          <a href={"tel:" + phoneInt}>{phone}</a>
+          <a href={"tel:" + privateInfo.phoneInt}>{privateInfo.phone}</a>
         </li>,
       );
     }
   }
   if (!isAnonymous) {
-    if (linkedIn) {
+    if (publicInfo.linkedIn) {
       elements.push(
         <li key="linkedin">
           <FontAwesomeIcon className={styles.icon} icon={faLinkedin} />{" "}
-          <a href={"https://" + linkedIn}>{linkedIn}</a>
+          <a href={"https://" + publicInfo.linkedIn}>{publicInfo.linkedIn}</a>
         </li>,
       );
     }
 
-    if (github) {
+    if (publicInfo.github) {
       elements.push(
         <li key="github">
           <FontAwesomeIcon className={styles.icon} icon={faGithub} />{" "}
-          <a href={"https://" + github}>{github}</a>
+          <a href={"https://" + publicInfo.github}>{publicInfo.github}</a>
         </li>,
       );
     }
   }
-  if (address1) {
+  if (privateInfo.address1) {
     elements.push(
       <li key="address">
         <FontAwesomeIcon className={styles.icon} icon={faLocationDot} />
         <span>
-          {address1}
-          {address2 && (
+          {privateInfo.address1}
+          {privateInfo.address2 && (
             <>
-              <br /> {address2}
+              <br /> {privateInfo.address2}
             </>
           )}
         </span>
@@ -99,24 +80,32 @@ export default function Info({
     elements.push(
       <li key="address">
         <FontAwesomeIcon className={styles.icon} icon={faLocationDot} />
-        <span> {city} </span>
+        <span> {publicInfo.city} </span>
       </li>,
     );
   }
 
   return (
     <section
-      className={`${styles.info} ${pictureUrl ? styles["has-picture"] : ""}`}
+      className={`${styles.info} ${
+        publicInfo.picture ? styles["has-picture"] : ""
+      }`}
     >
       <div>
-        <h1 className={styles.title}>{isAnonymous ? anonymousName : name}</h1>
-        <p className={styles.subtitle}>{title}</p>
+        <h1 className={styles.title}>
+          {isAnonymous ? publicInfo.anonymousName : publicInfo.fullName}
+        </h1>
+        <p className={styles.subtitle}>{publicInfo.jobTitle}</p>
       </div>
       <ul>{elements}</ul>
-      {pictureUrl ? (
+      {publicInfo.picture ? (
         <div className={styles.picture}>
           <div>
-            <Image alt="profile picture" src={pictureUrl} fill />
+            <Image
+              alt={publicInfo.picture.alt}
+              src={publicInfo.picture.url}
+              fill
+            />
           </div>
         </div>
       ) : (

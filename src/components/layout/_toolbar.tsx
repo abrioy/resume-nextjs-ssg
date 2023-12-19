@@ -35,8 +35,8 @@ export default function Toolbar({ type }: { type: "cv" | "resume" }) {
       ref={menuElement}
     >
       <li style={{ flex: 1 }}>
-        <span className={styles.name}>{publicInfo.name}</span>
-        <span className={styles.title}> {publicInfo.title}</span>
+        <span className={styles.name}>{publicInfo.fullName}</span>
+        <span className={styles.title}> {publicInfo.jobTitle}</span>
       </li>
 
       <li className={styles.desc}>

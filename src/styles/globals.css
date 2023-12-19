@@ -34,7 +34,7 @@ html, body {
 .page {
     margin: 0 auto;
     width: var(--page-width);
-    padding: var(--page-margin);
+    padding: max(var(--page-margin), env(safe-area-inset-top, 0)) max(var(--page-margin), env(safe-area-inset-right, 0)) max(var(--page-margin), env(safe-area-inset-bottom, 0)) max(var(--page-margin), env(safe-area-inset-left, 0));
     background: var(--page-background);
 }
 

@@ -23,13 +23,11 @@ jobs:
       - uses: volta-cli/action@v4
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      - name: Set basepath
-        run: |
-          set -x
-          sed "s#basePath: ''#basePath: '/${{ github.event.repository.name }}'#" -i next.config.mjs
       - name: Install dependencies
         run: yarn install --immutable
       - name: Build with Next.js
+        env:
+          NEXT_PUBLIC_BASE_PATH: "/${{ github.event.repository.name }}"
         run: yarn build
       - name: Build pdf
         run: yarn build:pdf ${{ github.event.repository.name }}

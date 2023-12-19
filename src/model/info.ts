@@ -1,26 +1,60 @@
 export interface PublicInfo {
+  // Main language for this page
+  lang: string;
+
+  // Title for the web page
+  pageTitle: string;
+  // Initials or some other short text to show in place of the full name
   anonymousName: string;
-  name: string;
-  title: string;
+  // Full name
+  fullName: string;
+  firstName: string;
+  lastName: string;
+  // Full job title
+  jobTitle: string;
+  // Address, may be overridden in PrivateInfo
   city?: string;
+  // Profile picture
+  picture?: {
+    url: string;
+    type: string;
+    alt: string;
+  };
+
+  // Link to a LinkedIn profile
   linkedIn?: string;
+  // Link to a GitHub profile
   github?: string;
-  pictureUrl?: string;
-  cvPdfName: string;
-  cvDesc: string;
-  cvHoverDownload: string;
-  cvHoverPrint: string;
+
+  // File name for the exported resume pdf
   resumePdfName: string;
+  // Short text to display next to the pdf link
   resumeDesc: string;
+  // Longer text to show when hovering the pdf download button
   resumeHoverDownload: string;
+  // Longer text to show when hovering the print button
   resumeHoverPrint: string;
+
+  // File name for the exported cv pdf
+  cvPdfName: string;
+  // Short text to display next to the pdf link
+  cvDesc: string;
+  // Longer text to show when hovering the pdf download button
+  cvHoverDownload: string;
+  // Longer text to show when hovering the print button
+  cvHoverPrint: string;
 }
 
 export interface PrivateInfo {
+  // First address line
   address1?: string;
+  // Second address line
   address2?: string;
+  // Phone number to display
   phone?: string;
+  // International phone number to add a clickable link
   phoneInt?: string;
+  // email address
   email?: string;
 }
 
