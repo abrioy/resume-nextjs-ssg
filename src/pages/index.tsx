@@ -48,8 +48,11 @@ export default function Index() {
         <meta property="og:profile:first_name" content={publicInfo.firstName} />
         <meta property="og:profile:last_name" content={publicInfo.lastName} />
         <meta property="og:title" content={publicInfo.pageTitle} />
-        <meta property="og:site_name" content={publicInfo.fullName} />
+        <meta property="og:site_name" content={publicInfo.resumeDesc} />
         <meta property="og:description" content="" />
+        <meta property="og:image" content={`${basePath}/preview.png`} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:alt" content={publicInfo.pageTitle} />
         {publicInfo.picture && (
           <>
             <meta

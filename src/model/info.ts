@@ -31,7 +31,7 @@ export interface PublicInfo {
 
   // File name for the exported resume pdf
   resumePdfName: string;
-  // Short text to display next to the pdf link
+  // Short text to display next to the pdf link and as the site name in Open Graph
   resumeDesc: string;
   // Longer text to show when hovering the pdf download button
   resumeHoverDownload: string;

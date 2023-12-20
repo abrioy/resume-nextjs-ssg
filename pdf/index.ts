@@ -4,13 +4,14 @@ import puppeteer, { Browser } from "puppeteer";
 
 import serveHandler from "serve-handler";
 import * as http from "http";
-import { mkdirSync } from "fs";
+import { mkdirSync, writeFileSync } from "fs";
 import { publicInfo } from "@/src/content/public-info";
 
 const basePath = process.argv[2] || "";
 
 const BUILD_PATH = "./out";
-const OUTPUT_PATH = `${BUILD_PATH}/pdf`;
+const PDF_OUTPUT_PATH = `${BUILD_PATH}/pdf`;
+const PREVIEW_OUTPUT_PATH = `${BUILD_PATH}`;
 const PORT = 3001;
 const APPLICATION_URL = `http://localhost:${PORT}/${basePath}`;
 
@@ -49,8 +50,46 @@ async function makePDF(browser: Browser, url: string, pdfPath: string) {
   await page.close();
 }
 
+async function makePreview(browser: Browser, url: string, imagePath: string) {
+  console.log(`Creating preview of url ${url}`);
+  const page = await browser.newPage();
+
+  const renderScale = 0.9;
+  await page.setViewport({
+    // Recommended Open Graph image size
+    width: 1200 * renderScale,
+    height: 630 * renderScale,
+    deviceScaleFactor: 1 / renderScale,
+  });
+  await page.goto(url, {
+    waitUntil: "networkidle0",
+  });
+  await page.addStyleTag({
+    content: `
+      html {
+        margin-top: 25px !important;
+      }
+    
+      menu {
+        display: none !important;
+      }
+    `,
+  });
+
+  const buffer = await page.screenshot({
+    type: "png",
+    encoding: "binary",
+    captureBeyondViewport: true,
+  });
+
+  writeFileSync(imagePath, buffer, { encoding: "binary" });
+
+  await page.close();
+}
+
 (async () => {
-  mkdirSync(OUTPUT_PATH, { recursive: true });
+  mkdirSync(PDF_OUTPUT_PATH, { recursive: true });
+  mkdirSync(PREVIEW_OUTPUT_PATH, { recursive: true });
 
   const server = serveApplication();
 
@@ -61,13 +100,19 @@ async function makePDF(browser: Browser, url: string, pdfPath: string) {
   await makePDF(
     browser,
     `${APPLICATION_URL}#resume`,
-    `${OUTPUT_PATH}/${publicInfo.resumePdfName}`,
+    `${PDF_OUTPUT_PATH}/${publicInfo.resumePdfName}`,
+  );
+
+  await makePreview(
+    browser,
+    `${APPLICATION_URL}#resume`,
+    `${PREVIEW_OUTPUT_PATH}/preview.png`,
   );
 
   await makePDF(
     browser,
     `${APPLICATION_URL}#cv`,
-    `${OUTPUT_PATH}/${publicInfo.cvPdfName}`,
+    `${PDF_OUTPUT_PATH}/${publicInfo.cvPdfName}`,
   );
 
   await browser.close();

@@ -1,5 +1,7 @@
 # Resume static site generator
 
+![Demo preview](https://abrioy.github.io/resume-nextjs-ssg/preview.png)
+
 This project uses next.js builds a static html of the resume, optimized to be easily printed from ny browser.
 
 Pdf files are generated on deployment for the short and long form resumes.

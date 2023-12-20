@@ -8,7 +8,7 @@
 }
 
 .has-picture {
-    grid-template-columns: var(--main-column-size) 1fr 0.8fr;
+    grid-template-columns: var(--main-column-size) 1fr auto;
 }
 
 .title {
@@ -58,6 +58,7 @@
 }
 
 .picture {
+    width: 10rem;
     aspect-ratio: 4/5;
     padding: 0.7rem;
     border: 2px solid var(--primary);
