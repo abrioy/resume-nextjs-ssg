@@ -3119,6 +3119,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"github-buttons@npm:^2.22.0":
+  version: 2.27.0
+  resolution: "github-buttons@npm:2.27.0"
+  checksum: 129fb9f881d31d7049ff4a4b667ff0455bbf4a2f2264263023a767a018531824c9e4e626098eab752edd55dbe82ca455bc25005afb23a328b2f77dd2cad153c9
+  languageName: node
+  linkType: hard
+
 "glob-parent@npm:^5.1.2, glob-parent@npm:~5.1.2":
   version: 5.1.2
   resolution: "glob-parent@npm:5.1.2"
@@ -5217,6 +5224,7 @@ __metadata:
     puppeteer: "npm:^21.5.2"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
+    react-github-btn: "npm:^1.4.0"
     remark-gfm: "npm:^4.0.0"
     sass: "npm:^1.60.0"
     serve: "npm:^14.2.1"
@@ -6001,6 +6009,17 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 66dfc5f93e13d0674e78ef41f92ed21dfb80f9c4ac4ac25a4b51046d41d4d2186abc915b897f69d3d0ebbffe6184e7c5876f2af26bfa956f179225d921be713a
+  languageName: node
+  linkType: hard
+
+"react-github-btn@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "react-github-btn@npm:1.4.0"
+  dependencies:
+    github-buttons: "npm:^2.22.0"
+  peerDependencies:
+    react: ">=16.3.0"
+  checksum: ce21b1081e8985fce93f19deb3ab3e20b36e80508fcd9346eb617728b2e242bea845434296a9b8acbc339259551d58e43d840dbe9ec03c21a7094a7a9038986e
   languageName: node
   linkType: hard
 

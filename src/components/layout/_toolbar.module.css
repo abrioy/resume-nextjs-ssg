@@ -48,6 +48,9 @@
     font-size: var(--font-size-s);
 }
 
+.repo {
+    margin-inline: 2rem;
+}
 
 .name, .title, .desc {
     transition: opacity ease-out 200ms;

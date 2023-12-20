@@ -19,6 +19,8 @@ export const publicInfo: PublicInfo = {
   cvPdfName: "CV_PINOT_Andre_chat_domestique_dossier_de_compétences.pdf",
   resumePdfName: "CV_PINOT_Andre_chat_domestique.pdf",
 
+  repoUrl: "https://github.com/abrioy/resume-nextjs-ssg",
+
   cvDesc: "Dossier de compétence",
   cvHoverDownload: "Télécharger le dossier de compétence",
   cvHoverPrint: "Imprimer le dossier de compétence",

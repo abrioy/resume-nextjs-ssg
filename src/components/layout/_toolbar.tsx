@@ -3,6 +3,7 @@ import { faFilePdf, faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { publicInfo } from "@/src/content/public-info";
+import GitHubButton from "react-github-btn";
 
 const RESUME_PDF_URL = `pdf/${publicInfo.resumePdfName}`;
 const CV_PDF_URL = `pdf/${publicInfo.cvPdfName}`;
@@ -42,6 +43,18 @@ export default function Toolbar({ type }: { type: "cv" | "resume" }) {
       <li className={styles.desc}>
         {type === "resume" ? publicInfo.resumeDesc : publicInfo.cvDesc}
       </li>
+
+      {publicInfo.repoUrl && (
+        <li className={styles.repo}>
+          <GitHubButton
+            href={publicInfo.repoUrl}
+            data-size="large"
+            data-show-count="false"
+          >
+            View on GitHub
+          </GitHubButton>
+        </li>
+      )}
 
       <li>
         <a

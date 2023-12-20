@@ -26,6 +26,9 @@ export interface PublicInfo {
   // Link to a GitHub profile
   github?: string;
 
+  // Link to the GitHub repo of this project
+  repoUrl?: string;
+
   // File name for the exported resume pdf
   resumePdfName: string;
   // Short text to display next to the pdf link
