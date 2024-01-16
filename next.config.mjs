@@ -22,9 +22,11 @@ const withMDX = mdx({
 const nextConfig = {
     output: 'export',
 
-    pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+    pageExtensions: ['tsx', 'mdx'],
 
-    reactStrictMode: true, sassOptions: {
+    reactStrictMode: true,
+
+    sassOptions: {
         includePaths: [path.join(__dirname, 'styles')],
     },
 

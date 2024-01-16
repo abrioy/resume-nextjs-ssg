@@ -30,7 +30,7 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: "/${{ github.event.repository.name }}"
         run: yarn build
       - name: Build pdf
-        run: yarn build:pdf ${{ github.event.repository.name }}
+        run: yarn build:pdf "${{ github.event.repository.name }}"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:

@@ -6,6 +6,7 @@ import serveHandler from "serve-handler";
 import * as http from "http";
 import { mkdirSync, writeFileSync } from "fs";
 import { publicInfo } from "@/src/content/public-info";
+import { Constant } from "@/src/model/constant";
 
 const basePath = process.argv[2] || "";
 
@@ -57,8 +58,8 @@ async function makePreview(browser: Browser, url: string, imagePath: string) {
   const renderScale = 0.9;
   await page.setViewport({
     // Recommended Open Graph image size
-    width: 1200 * renderScale,
-    height: 630 * renderScale,
+    width: Constant.openGraphImageWidth * renderScale,
+    height: Constant.openGraphImageHeight * renderScale,
     deviceScaleFactor: 1 / renderScale,
   });
   await page.goto(url, {

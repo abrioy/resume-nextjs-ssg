@@ -1,8 +1,8 @@
 import "@fontsource-variable/inter";
 import "@/src/styles/_variables.css";
 import "@/src/styles/globals.css";
-import Index from "@/src/pages/index";
+import { AppProps } from "next/app";
 
-export default function App() {
-  return <Index />;
+export default function MyApp({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
 }

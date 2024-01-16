@@ -4,6 +4,8 @@ export interface PublicInfo {
 
   // Title for the web page
   pageTitle: string;
+  // Description for the web page
+  pageDesc: string;
   // Initials or some other short text to show in place of the full name
   anonymousName: string;
   // Full name
@@ -31,7 +33,7 @@ export interface PublicInfo {
 
   // File name for the exported resume pdf
   resumePdfName: string;
-  // Short text to display next to the pdf link and as the site name in Open Graph
+  // Short text to display next to the pdf link
   resumeDesc: string;
   // Longer text to show when hovering the pdf download button
   resumeHoverDownload: string;
@@ -46,6 +48,13 @@ export interface PublicInfo {
   cvHoverDownload: string;
   // Longer text to show when hovering the print button
   cvHoverPrint: string;
+
+  // Open Graph info
+  og: {
+    lang: string;
+    title: string;
+    siteName: string;
+  };
 }
 
 export interface PrivateInfo {
