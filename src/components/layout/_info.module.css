@@ -1,5 +1,5 @@
 .info {
-    margin-bottom: var(--page-margin);
+    margin-bottom: 2.5rem;
 
     display: grid;
     grid-template-columns: var(--main-column-size) 1fr;

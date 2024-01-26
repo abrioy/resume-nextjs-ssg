@@ -10,6 +10,7 @@
     justify-content: space-between;
     gap: var(--timeline-spacing-inner);
     padding-bottom: calc(var(--timeline-width) / 2);
+    margin-left: calc(var(--timeline-spacing-right) + var(--timeline-width));
 
     text-align: justify;
     hyphens: manual;
@@ -21,7 +22,7 @@
 }
 
 .timeline h3 {
-    margin: -0.25rem 0 0 calc(var(--timeline-spacing-right));
+    margin: -0.25rem 0 0 var(--timeline-spacing-right);
 }
 
 .timeline h3 em {

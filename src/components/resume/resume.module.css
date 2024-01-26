@@ -6,7 +6,6 @@ main.resume {
     height: 100%;
     display: grid;
     grid-template-columns: 1fr var(--main-column-size);
-    gap: var(--page-margin);
 }
 
 .resume table {
