@@ -22,7 +22,7 @@ const withMDX = mdx({
 const nextConfig = {
     output: 'export',
 
-    pageExtensions: ['tsx', 'mdx'],
+    pageExtensions: ['ts', 'tsx', 'mdx'],
 
     reactStrictMode: true,
 

@@ -1,7 +1,7 @@
 import styles from "./_toolbar.module.css";
 import { faFilePdf, faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useRef, useState } from "react";
+import { MouseEventHandler, useEffect, useRef, useState } from "react";
 import { publicInfo } from "@/src/content/public-info";
 import GitHubButton from "react-github-btn";
 
@@ -29,7 +29,22 @@ export default function Toolbar({ type }: { type: "cv" | "resume" }) {
     }
   }, [setIsPinned]);
 
-  const downloadUrl = type === "resume" ? RESUME_PDF_URL : CV_PDF_URL;
+  const getClickHandler: (
+    handlerType: "cv" | "resume",
+  ) => MouseEventHandler<HTMLAnchorElement> = (handlerType) => (event) => {
+    event.preventDefault();
+    const container = document.querySelector("[data-show-children]");
+    if (!container) {
+      window.print();
+    } else {
+      const oldSelector = container.getAttribute("data-show-children");
+      container.setAttribute("data-show-children", handlerType);
+      window.print();
+      if (oldSelector) {
+        container.setAttribute("data-show-children", oldSelector);
+      }
+    }
+  };
   return (
     <menu
       className={`${styles.toolbar} ${isPinned ? styles.pinned : ""}`}
@@ -56,48 +71,56 @@ export default function Toolbar({ type }: { type: "cv" | "resume" }) {
         </li>
       )}
 
-      <li>
-        <a
-          href={downloadUrl}
-          target="_self"
-          type="application/pdf"
-          download={publicInfo.resumePdfName}
-          title={
-            type === "resume"
-              ? publicInfo.resumeHoverDownload
-              : publicInfo.cvHoverDownload
-          }
-        >
-          <FontAwesomeIcon icon={faFilePdf} />
-        </a>
+      <li className={styles.dropdown}>
+        <FontAwesomeIcon icon={faFilePdf} />
+
+        <ul>
+          <li>
+            <a
+              href={RESUME_PDF_URL}
+              target="_self"
+              type="application/pdf"
+              download={publicInfo.resumePdfName}
+            >
+              {publicInfo.resumeHoverDownload}
+            </a>
+          </li>
+          <li>
+            <a
+              href={CV_PDF_URL}
+              target="_self"
+              type="application/pdf"
+              download={publicInfo.cvPdfName}
+            >
+              {publicInfo.cvHoverDownload}
+            </a>
+          </li>
+        </ul>
       </li>
 
-      <li>
-        <a
-          href={downloadUrl}
-          target="_blank"
-          title={
-            type === "resume"
-              ? publicInfo.resumeHoverPrint
-              : publicInfo.cvHoverPrint
-          }
-          onClick={(event) => {
-            event.preventDefault();
-            const container = document.querySelector("[data-show-children]");
-            if (!container) {
-              window.print();
-            } else {
-              const oldSelector = container.getAttribute("data-show-children");
-              container.setAttribute("data-show-children", type);
-              window.print();
-              if (oldSelector) {
-                container.setAttribute("data-show-children", oldSelector);
-              }
-            }
-          }}
-        >
-          <FontAwesomeIcon icon={faPrint} />
-        </a>
+      <li className={styles.dropdown}>
+        <FontAwesomeIcon icon={faPrint} />
+
+        <ul>
+          <li>
+            <a
+              href={RESUME_PDF_URL}
+              target="_blank"
+              onClick={getClickHandler("resume")}
+            >
+              {publicInfo.resumeHoverPrint}
+            </a>
+          </li>
+          <li>
+            <a
+              href={CV_PDF_URL}
+              target="_blank"
+              onClick={getClickHandler("cv")}
+            >
+              {publicInfo.cvHoverPrint}
+            </a>
+          </li>
+        </ul>
       </li>
     </menu>
   );
