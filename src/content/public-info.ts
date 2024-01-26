@@ -11,7 +11,7 @@ export const publicInfo: PublicInfo = {
   lastName,
   jobTitle,
   pageTitle: `${firstName} ${lastName} - ${jobTitle}`,
-  pageDesc: "",
+  pageDesc: `Page du CV de ${firstName} ${lastName}`,
   fullName: `${firstName} ${lastName}`,
   city: "Rennes",
   linkedIn: "linkedin.com/in/andrépinot",
@@ -34,7 +34,7 @@ export const publicInfo: PublicInfo = {
   og: {
     lang: "fr_FR",
     title: `CV - ${jobTitle}`,
-    siteName: "${firstName} ${lastName}",
+    siteName: `${firstName} ${lastName}`,
   },
 
   repoUrl: "https://github.com/abrioy/resume-nextjs-ssg",

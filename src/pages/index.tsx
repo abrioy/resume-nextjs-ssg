@@ -35,12 +35,10 @@ export default function Index() {
   return (
     <>
       <Head>
-        <meta
-          name="viewport"
-          content="user-scalable=yes, width=850, viewport-fit=contain"
-        />
+        <meta name="viewport" content="user-scalable=yes, width=850" />
         <link rel="icon" href={`${Constant.basePath}/favicon.ico`} />
         <title>{publicInfo.pageTitle}</title>
+        <meta name="description" content={publicInfo.pageDesc} />
 
         <meta property="og:locale" content={publicInfo.og.lang} />
         <meta property="og:title" content={publicInfo.og.title} />

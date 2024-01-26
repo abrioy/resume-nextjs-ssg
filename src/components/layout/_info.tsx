@@ -104,7 +104,8 @@ export default function Info({
             <Image
               alt={publicInfo.picture.alt}
               src={publicInfo.picture.url}
-              fill
+              fill={true}
+              loading={"lazy"}
             />
           </div>
         </div>
