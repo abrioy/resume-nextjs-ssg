@@ -6,7 +6,7 @@ This project uses next.js builds a static html of the resume, optimized to be ea
 
 Pdf files are generated on deployment for the short and long form resumes.
 
-See the [demo](https://)
+See the [demo](https://abrioy.github.io/resume-nextjs-ssg)
 
 And the [PageSpeed report](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fabrioy.github.io%2Fresume-nextjs-ssg%2F&form_factor=desktop)
 
