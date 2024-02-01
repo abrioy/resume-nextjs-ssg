@@ -2,9 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 27px 0 -25px var(--primary);
-    padding-bottom: 2rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
 }
 
 .title::before {
@@ -14,4 +12,11 @@
 .title > :last-child {
     font-weight: 300;
     font-size: 80%;
+}
+
+.separator {
+    margin-inline: 25px;
+    border: 0;
+    border-bottom: 2px solid var(--primary);
+    margin-bottom: 2.5rem;
 }
