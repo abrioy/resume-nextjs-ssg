@@ -16,6 +16,7 @@ export const publicInfo: PublicInfo = {
   city: "Rennes",
   linkedIn: "linkedin.com/in/andrépinot",
   github: "github.com/andrépinot",
+  gitlab: "gitlab.com/andrépinot",
   picture: {
     url: "PINOT_Andre.jpg",
     type: "image/jpeg",

@@ -27,6 +27,8 @@ export interface PublicInfo {
   linkedIn?: string;
   // Link to a GitHub profile
   github?: string;
+  // Link to a GitLab profile
+  gitlab?: string;
 
   // Link to the GitHub repo of this project
   repoUrl?: string;
