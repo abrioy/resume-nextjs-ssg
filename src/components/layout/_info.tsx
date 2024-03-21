@@ -3,7 +3,7 @@ import {
   faLocationDot,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
-import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import {faGithub, faGitlab, faLinkedin} from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styles from "./_info.module.css";
@@ -59,6 +59,15 @@ export default function Info({
           <FontAwesomeIcon className={styles.icon} icon={faGithub} />{" "}
           <a href={"https://" + publicInfo.github}>{publicInfo.github}</a>
         </li>,
+      );
+    }
+
+    if (publicInfo.gitlab) {
+      elements.push(
+          <li key="gitlab">
+            <FontAwesomeIcon className={styles.icon} icon={faGitlab} />{" "}
+            <a href={"https://" + publicInfo.gitlab}>{publicInfo.gitlab}</a>
+          </li>,
       );
     }
   }
