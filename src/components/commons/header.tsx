@@ -1,13 +1,13 @@
 import Info from "@/src/components/layout/_info";
 import { ReactElement, useEffect, useState } from "react";
-import { publicInfo } from "@/src/content/public-info";
-import { getPrivateInfo, PrivateInfo } from "@/src/model/info";
+import { getPrivateInfo, PrivateInfo } from "@/src/model/private-info";
+import { ConfigurationVariant } from "@/src/model/configuration.model";
 
 export default function Header({
-  type,
+  variant,
   children,
 }: {
-  type: "cv" | "resume";
+  variant: ConfigurationVariant;
   children?: ReactElement | ReactElement[];
 }) {
   const [privateInfo, setPrivateInfo] = useState<PrivateInfo>({});
@@ -19,7 +19,7 @@ export default function Header({
     <Info
       isPublic={!privateInfo}
       isAnonymous={false}
-      publicInfo={publicInfo}
+      variant={variant}
       privateInfo={privateInfo}
     >
       {children}

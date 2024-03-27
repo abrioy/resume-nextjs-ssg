@@ -1,9 +1,9 @@
 import { Head, Html, Main, NextScript } from "next/document";
-import { publicInfo } from "@/src/content/public-info";
+import { configuration } from "@/src/content/configuration";
 
 export default function Document() {
   return (
-    <Html lang={publicInfo.lang}>
+    <Html lang={configuration.lang}>
       <Head />
 
       <body>

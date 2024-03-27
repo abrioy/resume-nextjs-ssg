@@ -5,8 +5,8 @@ import puppeteer, { Browser } from "puppeteer";
 import serveHandler from "serve-handler";
 import * as http from "http";
 import { mkdirSync, writeFileSync } from "fs";
-import { publicInfo } from "@/src/content/public-info";
-import { Constant } from "@/src/model/constant";
+import { configuration } from "@/src/content/configuration";
+import { Constant } from "@/src/model/constant.model";
 
 const basePath = process.argv[2] || "";
 
@@ -101,7 +101,7 @@ async function makePreview(browser: Browser, url: string, imagePath: string) {
   await makePDF(
     browser,
     `${APPLICATION_URL}#resume`,
-    `${PDF_OUTPUT_PATH}/${publicInfo.resumePdfName}`,
+    `${PDF_OUTPUT_PATH}/${configuration.resumePdfName}`,
   );
 
   await makePreview(
@@ -113,7 +113,7 @@ async function makePreview(browser: Browser, url: string, imagePath: string) {
   await makePDF(
     browser,
     `${APPLICATION_URL}#cv`,
-    `${PDF_OUTPUT_PATH}/${publicInfo.cvPdfName}`,
+    `${PDF_OUTPUT_PATH}/${configuration.cvPdfName}`,
   );
 
   await browser.close();

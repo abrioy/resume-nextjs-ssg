@@ -2,13 +2,20 @@ import styles from "./_toolbar.module.css";
 import { faFilePdf, faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MouseEventHandler, useEffect, useRef, useState } from "react";
-import { publicInfo } from "@/src/content/public-info";
+import { configuration } from "@/src/content/configuration";
 import GitHubButton from "react-github-btn";
+import {
+  ConfigurationVariant,
+  VariantDocument,
+} from "@/src/model/configuration.model";
 
-const RESUME_PDF_URL = `pdf/${publicInfo.resumePdfName}`;
-const CV_PDF_URL = `pdf/${publicInfo.cvPdfName}`;
-
-export default function Toolbar({ type }: { type: "cv" | "resume" }) {
+export default function Toolbar({
+  variant,
+  resume,
+}: {
+  variant: ConfigurationVariant;
+  resume: VariantDocument;
+}) {
   const menuElement = useRef<HTMLElement>(null);
   const [isPinned, setIsPinned] = useState(false);
 
@@ -30,15 +37,15 @@ export default function Toolbar({ type }: { type: "cv" | "resume" }) {
   }, [setIsPinned]);
 
   const getClickHandler: (
-    handlerType: "cv" | "resume",
-  ) => MouseEventHandler<HTMLAnchorElement> = (handlerType) => (event) => {
+    resumeId: string,
+  ) => MouseEventHandler<HTMLAnchorElement> = (resumeId) => (event) => {
     event.preventDefault();
     const container = document.querySelector("[data-show-children]");
     if (!container) {
       window.print();
     } else {
       const oldSelector = container.getAttribute("data-show-children");
-      container.setAttribute("data-show-children", handlerType);
+      container.setAttribute("data-show-children", resumeId);
       window.print();
       if (oldSelector) {
         container.setAttribute("data-show-children", oldSelector);
@@ -51,18 +58,16 @@ export default function Toolbar({ type }: { type: "cv" | "resume" }) {
       ref={menuElement}
     >
       <li style={{ flex: 1 }}>
-        <span className={styles.name}>{publicInfo.fullName}</span>
-        <span className={styles.title}> {publicInfo.jobTitle}</span>
+        <span className={styles.name}>{variant.infos.fullName()}</span>
+        <span className={styles.title}> {variant.infos.jobTitle()}</span>
       </li>
 
-      <li className={styles.desc}>
-        {type === "resume" ? publicInfo.resumeDesc : publicInfo.cvDesc}
-      </li>
+      <li className={styles.desc}>{resume.headerTitle}</li>
 
-      {publicInfo.repoUrl && (
+      {configuration.repoUrl && (
         <li className={styles.repo}>
           <GitHubButton
-            href={publicInfo.repoUrl}
+            href={configuration.repoUrl}
             data-size="large"
             data-show-count="false"
           >
@@ -75,26 +80,18 @@ export default function Toolbar({ type }: { type: "cv" | "resume" }) {
         <FontAwesomeIcon icon={faFilePdf} />
 
         <ul>
-          <li>
-            <a
-              href={RESUME_PDF_URL}
-              target="_self"
-              type="application/pdf"
-              download={publicInfo.resumePdfName}
-            >
-              {publicInfo.resumeHoverDownload}
-            </a>
-          </li>
-          <li>
-            <a
-              href={CV_PDF_URL}
-              target="_self"
-              type="application/pdf"
-              download={publicInfo.cvPdfName}
-            >
-              {publicInfo.cvHoverDownload}
-            </a>
-          </li>
+          {variant.documents.map((resume, index) => (
+            <li key={index}>
+              <a
+                href={`pdf/${resume.pdfName}`}
+                target="_self"
+                type="application/pdf"
+                download={resume.pdfName}
+              >
+                {resume.hoverDownload}
+              </a>
+            </li>
+          ))}
         </ul>
       </li>
 
@@ -102,24 +99,17 @@ export default function Toolbar({ type }: { type: "cv" | "resume" }) {
         <FontAwesomeIcon icon={faPrint} />
 
         <ul>
-          <li>
-            <a
-              href={RESUME_PDF_URL}
-              target="_blank"
-              onClick={getClickHandler("resume")}
-            >
-              {publicInfo.resumeHoverPrint}
-            </a>
-          </li>
-          <li>
-            <a
-              href={CV_PDF_URL}
-              target="_blank"
-              onClick={getClickHandler("cv")}
-            >
-              {publicInfo.cvHoverPrint}
-            </a>
-          </li>
+          {variant.documents.map((resume, index) => (
+            <li key={index}>
+              <a
+                href={`pdf/${resume.pdfName}`}
+                target="_blank"
+                onClick={getClickHandler(`${index}`)}
+              >
+                {resume.hoverPrint}
+              </a>
+            </li>
+          ))}
         </ul>
       </li>
     </menu>

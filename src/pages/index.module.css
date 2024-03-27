@@ -1,9 +1,21 @@
 @media print {
-    .container[data-show-children="resume"] > :not([data-show-when="resume"]) {
+    .container[data-show-children="0"] > :not([data-show-when="0"]) {
         display: none;
     }
 
-    .container[data-show-children="cv"] > :not([data-show-when="cv"]) {
+    .container[data-show-children="1"] > :not([data-show-when="1"]) {
+        display: none;
+    }
+
+    .container[data-show-children="2"] > :not([data-show-when="2"]) {
+        display: none;
+    }
+
+    .container[data-show-children="3"] > :not([data-show-when="3"]) {
+        display: none;
+    }
+
+    .container[data-show-children="4"] > :not([data-show-when="4"]) {
         display: none;
     }
 }

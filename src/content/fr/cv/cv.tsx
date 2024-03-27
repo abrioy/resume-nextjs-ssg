@@ -1,13 +1,16 @@
-import CVBody from "@/src/content/cv/body.mdx";
-import { MDXComponents } from "mdx/types";
+import CVBody from "@/src/content/fr/cv/body.mdx";
 import styles from "./cv.module.css";
 import Header from "@/src/components/commons/header";
+import { VariantDocumentComponentArgs } from "@/src/model/configuration.model";
 
-export default function CV({ components }: { components: MDXComponents }) {
+export default function CV({
+  variant,
+  components,
+}: VariantDocumentComponentArgs) {
   return (
     <>
       <header className={styles.cv}>
-        <Header type={"cv"}></Header>
+        <Header variant={variant}></Header>
       </header>
       <main className={styles.cv}>
         <CVBody components={components}></CVBody>

@@ -1,14 +1,12 @@
 import { MDXComponents } from "mdx/types";
 import Head from "next/head";
-import CV from "@/src/components/cv/cv";
-import Resume from "@/src/components/resume/resume";
 
 import styles from "./index.module.css";
 import Break from "@/src/components/layout/_break";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Toolbar from "@/src/components/layout/_toolbar";
-import { publicInfo } from "@/src/content/public-info";
-import { Constant } from "@/src/model/constant";
+import { configuration } from "@/src/content/configuration";
+import { Constant } from "@/src/model/constant.model";
 
 const components: MDXComponents = {};
 
@@ -17,6 +15,7 @@ const cleanUrl = (url: string): string => {
 };
 
 export default function Index() {
+  const [variant] = useState(configuration.variants[0]);
   const [current, setCurrent] = useState("all");
 
   useEffect(() => {
@@ -36,27 +35,30 @@ export default function Index() {
     <>
       <Head>
         <meta name="viewport" content="user-scalable=yes, width=850" />
-        <link rel="icon" href={`${Constant.basePath}/favicon.ico`} />
-        <title>{publicInfo.pageTitle}</title>
-        <meta name="description" content={publicInfo.pageDesc} />
+        <link rel="icon" href={`${Constant.baseUrl}/favicon.ico`} />
+        <title>{variant.infos.pageTitle()}</title>
+        <meta name="description" content={variant.infos.pageDesc()} />
 
-        <meta property="og:locale" content={publicInfo.og.lang} />
-        <meta property="og:title" content={publicInfo.og.title} />
-        <meta property="og:site_name" content={publicInfo.og.siteName} />
-        <meta property="og:description" content={publicInfo.pageDesc} />
+        <meta property="og:locale" content={variant.locale.openGraph} />
+        <meta property="og:title" content={variant.infos.pageTitle()} />
+        <meta property="og:site_name" content={variant.infos.fullName()} />
+        <meta property="og:description" content={variant.infos.pageDesc()} />
 
         <meta property="og:type" content="profile" />
         <meta
           property="og:profile:username"
-          content={publicInfo.anonymousName}
+          content={variant.infos.anonymousName()}
         />
-        <meta property="og:profile:first_name" content={publicInfo.firstName} />
-        <meta property="og:profile:last_name" content={publicInfo.lastName} />
-
         <meta
-          property="og:image"
-          content={`${Constant.basePath}/preview.png`}
+          property="og:profile:first_name"
+          content={variant.infos.firstName()}
         />
+        <meta
+          property="og:profile:last_name"
+          content={variant.infos.lastName()}
+        />
+
+        <meta property="og:image" content={`${variant.baseUrl}/preview.png`} />
         <meta property="og:image:type" content="image/png" />
         <meta
           property="og:image:width"
@@ -68,14 +70,14 @@ export default function Index() {
         />
         <meta property="og:image:alt" content="preview" />
 
-        {publicInfo.picture && (
+        {variant.picture && (
           <>
             <meta
               property="og:image"
-              content={`${Constant.basePath}/${publicInfo.picture.url}`}
+              content={`${variant.baseUrl}/${variant.picture.url()}`}
             />
-            <meta property="og:image:type" content={publicInfo.picture.type} />
-            <meta property="og:image:alt" content={publicInfo.picture.alt} />
+            <meta property="og:image:type" content={variant.picture.type()} />
+            <meta property="og:image:alt" content={variant.picture.alt()} />
           </>
         )}
       </Head>
@@ -84,17 +86,23 @@ export default function Index() {
         className={`${styles.container} page-container`}
         data-show-children={current || "all"}
       >
-        <section className={`page page-single`} data-show-when="resume">
-          <Toolbar type="resume"></Toolbar>
-          <Resume components={components} />
-        </section>
+        {variant.documents.map((variantDocument, index) => (
+          <Fragment key={index}>
+            {index !== 0 ? <Break /> : <></>}
 
-        <Break />
-
-        <section className={`page`} data-show-when="cv">
-          <Toolbar type="cv"></Toolbar>
-          <CV components={components} />
-        </section>
+            <section
+              className={`page ${variantDocument.singlePage ? "page-single" : ""}`}
+              data-show-when={index}
+            >
+              <Toolbar variant={variant} resume={variantDocument}></Toolbar>
+              {variantDocument.component({
+                variant,
+                variantDocument,
+                components,
+              })}
+            </section>
+          </Fragment>
+        ))}
       </div>
     </>
   );

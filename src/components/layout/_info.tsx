@@ -3,24 +3,29 @@ import {
   faLocationDot,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
-import {faGithub, faGitlab, faLinkedin} from "@fortawesome/free-brands-svg-icons";
+import {
+  faGithub,
+  faGitlab,
+  faLinkedin,
+} from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styles from "./_info.module.css";
 import { ReactElement } from "react";
 import Image from "next/image";
-import { PrivateInfo, PublicInfo } from "@/src/model/info";
+import { ConfigurationVariant } from "@/src/model/configuration.model";
+import { PrivateInfo } from "@/src/model/private-info";
 
 export default function Info({
+  variant,
   isPublic,
   isAnonymous,
-  publicInfo,
   privateInfo,
   children,
 }: {
+  variant: ConfigurationVariant;
   isPublic: boolean;
   isAnonymous: boolean;
-  publicInfo: PublicInfo;
   privateInfo: PrivateInfo;
   children?: ReactElement | ReactElement[];
 }) {
@@ -44,30 +49,36 @@ export default function Info({
     }
   }
   if (!isAnonymous) {
-    if (publicInfo.linkedIn) {
+    if (variant.socials.linkedIn()) {
       elements.push(
         <li key="linkedin">
           <FontAwesomeIcon className={styles.icon} icon={faLinkedin} />{" "}
-          <a href={"https://" + publicInfo.linkedIn}>{publicInfo.linkedIn}</a>
+          <a href={"https://" + variant.socials.linkedIn()}>
+            {variant.socials.linkedIn()}
+          </a>
         </li>,
       );
     }
 
-    if (publicInfo.github) {
+    if (variant.socials.github()) {
       elements.push(
         <li key="github">
           <FontAwesomeIcon className={styles.icon} icon={faGithub} />{" "}
-          <a href={"https://" + publicInfo.github}>{publicInfo.github}</a>
+          <a href={"https://" + variant.socials.github()}>
+            {variant.socials.github()}
+          </a>
         </li>,
       );
     }
 
-    if (publicInfo.gitlab) {
+    if (variant.socials.gitlab()) {
       elements.push(
-          <li key="gitlab">
-            <FontAwesomeIcon className={styles.icon} icon={faGitlab} />{" "}
-            <a href={"https://" + publicInfo.gitlab}>{publicInfo.gitlab}</a>
-          </li>,
+        <li key="gitlab">
+          <FontAwesomeIcon className={styles.icon} icon={faGitlab} />{" "}
+          <a href={"https://" + variant.socials.gitlab()}>
+            {variant.socials.gitlab()}
+          </a>
+        </li>,
       );
     }
   }
@@ -89,30 +100,34 @@ export default function Info({
     elements.push(
       <li key="address">
         <FontAwesomeIcon className={styles.icon} icon={faLocationDot} />
-        <span> {publicInfo.city} </span>
+        <span> {variant.infos.location()} </span>
       </li>,
     );
   }
 
+  const pictureUrl = variant.picture.url();
+  const pictureAlt = variant.picture.url();
   return (
     <section
       className={`${styles.info} ${
-        publicInfo.picture ? styles["has-picture"] : ""
+        variant.picture ? styles["has-picture"] : ""
       }`}
     >
       <div>
         <h1 className={styles.title}>
-          {isAnonymous ? publicInfo.anonymousName : publicInfo.fullName}
+          {isAnonymous
+            ? variant.infos.anonymousName()
+            : variant.infos.fullName()}
         </h1>
-        <p className={styles.subtitle}>{publicInfo.jobTitle}</p>
+        <p className={styles.subtitle}>{variant.infos.jobTitle()}</p>
       </div>
       <ul>{elements}</ul>
-      {publicInfo.picture ? (
+      {pictureUrl && pictureAlt ? (
         <div className={styles.picture}>
           <div>
             <Image
-              alt={publicInfo.picture.alt}
-              src={publicInfo.picture.url}
+              src={pictureUrl}
+              alt={pictureAlt}
               fill={true}
               loading={"lazy"}
             />

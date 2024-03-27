@@ -1,18 +1,21 @@
-import Intro from "@/src/content/resume/intro.mdx";
-import Experience from "@/src/content/resume/experience.mdx";
-import Skills from "@/src/content/resume/skills.mdx";
-import Training from "@/src/content/resume/training.mdx";
-import SkillsSecondary from "@/src/content/resume/skills-secondary.mdx";
-import { MDXComponents } from "mdx/types";
-import styles from "./resume.module.css";
-import stylesTimeline from "./resume-timeline.module.css";
+import styles from "@/src/content/fr/resume/resume.module.css";
 import Header from "@/src/components/commons/header";
+import Intro from "@/src/content/fr/resume/intro.mdx";
+import Skills from "@/src/content/fr/resume/skills.mdx";
+import SkillsSecondary from "@/src/content/fr/resume/skills-secondary.mdx";
+import Training from "@/src/content/fr/resume/training.mdx";
+import stylesTimeline from "@/src/content/fr/resume/resume-timeline.module.css";
+import Experience from "@/src/content/fr/resume/experience.mdx";
+import { VariantDocumentComponentArgs } from "@/src/model/configuration.model";
 
-export default function Resume({ components }: { components: MDXComponents }) {
+export default function Resume({
+  variant,
+  components,
+}: VariantDocumentComponentArgs) {
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <header className={styles.resume}>
-        <Header type={"resume"}>
+        <Header variant={variant}>
           <Intro components={components}></Intro>
         </Header>
       </header>

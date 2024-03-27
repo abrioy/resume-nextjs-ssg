@@ -1,29 +1,29 @@
 import { MetadataRoute } from "next";
-import { Constant } from "@/src/model/constant";
-import { publicInfo } from "@/src/content/public-info";
+import { Constant } from "@/src/model/constant.model";
+import { configuration } from "@/src/content/configuration";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: publicInfo.pageTitle,
-    short_name: publicInfo.fullName,
-    description: publicInfo.pageDesc,
-    start_url: Constant.basePath,
+    name: configuration.pageTitle,
+    short_name: configuration.fullName,
+    description: configuration.pageDesc,
+    start_url: Constant.baseUrl,
     display: "standalone",
     background_color: "#fff",
     theme_color: "#fff",
     icons: [
       {
-        src: `${Constant.basePath}/favicon.ico`,
+        src: `${Constant.baseUrl}/favicon.ico`,
         sizes: "any",
         type: "image/x-icon",
       },
       {
-        src: `${Constant.basePath}/android-chrome-192x192.png`,
+        src: `${Constant.baseUrl}/android-chrome-192x192.png`,
         sizes: "192x192",
         type: "image/png",
       },
       {
-        src: `${Constant.basePath}/android-chrome-512x512.png`,
+        src: `${Constant.baseUrl}/android-chrome-512x512.png`,
         sizes: "512x512",
         type: "image/png",
       },
