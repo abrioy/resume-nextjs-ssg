@@ -3,7 +3,7 @@ import { configuration } from "@/src/content/configuration";
 
 export default function Document() {
   return (
-    <Html lang={configuration.lang}>
+    <Html lang={configuration.variants[0].locale.htmlLang}>
       <Head />
 
       <body>

@@ -128,6 +128,8 @@ export interface ConfigurationVariantInit {
 }
 
 export interface VariantDocument {
+  // anchor of the document for the generation
+  anchor: string;
   // Forces the document to be printed on a single page
   singlePage: boolean;
   // Short text to display next to the pdf link

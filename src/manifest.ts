@@ -4,9 +4,9 @@ import { configuration } from "@/src/content/configuration";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: configuration.pageTitle,
-    short_name: configuration.fullName,
-    description: configuration.pageDesc,
+    name: configuration.variants[0].infos.pageTitle(),
+    short_name: configuration.variants[0].infos.fullName(),
+    description: configuration.variants[0].infos.pageDesc(),
     start_url: Constant.baseUrl,
     display: "standalone",
     background_color: "#fff",

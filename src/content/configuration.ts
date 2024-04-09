@@ -40,6 +40,7 @@ export const configuration: Configuration = new Configuration({
       },
       documents: [
         {
+          anchor: "resume",
           singlePage: true,
           headerTitle: "CV",
           pdfName: "CV_PINOT_Andre_chat_domestique.pdf",
@@ -48,6 +49,7 @@ export const configuration: Configuration = new Configuration({
           component: Resume,
         },
         {
+          anchor: "cv",
           singlePage: false,
           headerTitle: "Dossier de compétence",
           pdfName: "CV_PINOT_Andre_chat_domestique_dossier_de_competences.pdf",
