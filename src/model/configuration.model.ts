@@ -10,6 +10,7 @@ export class Configuration {
   readonly variants = this.conf.variants.map(
     (variant) => new ConfigurationVariant(variant),
   );
+  readonly defaultVariant = this.variants[0];
   readonly repoUrl = this.conf.repoUrl;
 
   constructor(
@@ -67,8 +68,12 @@ export class ConfigurationVariant {
 
   readonly documents = this.conf.documents;
 
+  get baseUrlRoot(): string {
+    return `${Constant.baseUrl}`;
+  }
+
   get baseUrl(): string {
-    return `${Constant.baseUrl}/${this.locale.url}`;
+    return `${this.baseUrlRoot}/${this.locale.url}`;
   }
 
   constructor(private conf: ConfigurationVariantInit) {}

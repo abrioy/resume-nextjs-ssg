@@ -5,14 +5,13 @@ import puppeteer, { Browser } from "puppeteer";
 import serveHandler from "serve-handler";
 import * as http from "http";
 import { mkdirSync, writeFileSync } from "fs";
-import { configuration } from "@/src/content/configuration";
 import { Constant } from "@/src/model/constant.model";
+import { readdirSync } from "node:fs";
 
 const basePath = process.argv[2] || "";
 
 const BUILD_PATH = "./out";
-const PDF_OUTPUT_PATH = `${BUILD_PATH}/pdf`;
-const PREVIEW_OUTPUT_PATH = `${BUILD_PATH}`;
+const OUTPUT_PATH = `${BUILD_PATH}`;
 const PORT = 3001;
 const APPLICATION_URL = `http://localhost:${PORT}/${basePath}`;
 
@@ -51,7 +50,11 @@ async function makePDF(browser: Browser, url: string, pdfPath: string) {
   await page.close();
 }
 
-async function makePreview(browser: Browser, url: string, imagePath: string) {
+async function makePreview(
+  browser: Browser,
+  url: string,
+  imagePath: string,
+): Promise<{ fragment: string; pdfName: string }[]> {
   console.log(`Creating preview of url ${url}`);
   const page = await browser.newPage();
 
@@ -85,36 +88,47 @@ async function makePreview(browser: Browser, url: string, imagePath: string) {
 
   writeFileSync(imagePath, buffer, { encoding: "binary" });
 
+  const documents = await page.$$eval("[data-pdf]", (documents) =>
+    documents.map((element) => ({
+      fragment: element.getAttribute("data-show-when") || "",
+      pdfName: element.getAttribute("data-pdf") || "",
+    })),
+  );
+
   await page.close();
+
+  return documents;
 }
 
 (async () => {
-  mkdirSync(PDF_OUTPUT_PATH, { recursive: true });
-  mkdirSync(PREVIEW_OUTPUT_PATH, { recursive: true });
-
   const server = serveApplication();
 
   const browser = await puppeteer.launch({
     headless: "new",
   });
 
-  await makePDF(
-    browser,
-    `${APPLICATION_URL}#resume`,
-    `${PDF_OUTPUT_PATH}/${configuration.resumePdfName}`,
-  );
+  const locales = readdirSync(OUTPUT_PATH)
+    .filter((file) => file.endsWith(".html"))
+    .map((file) => file.replaceAll(/.html$/g, ""))
+    .filter((file) => file !== "index" && file !== "404");
 
-  await makePreview(
-    browser,
-    `${APPLICATION_URL}#resume`,
-    `${PREVIEW_OUTPUT_PATH}/preview.png`,
-  );
+  for (const locale of locales) {
+    mkdirSync(`${OUTPUT_PATH}/${locale}`, { recursive: true });
 
-  await makePDF(
-    browser,
-    `${APPLICATION_URL}#cv`,
-    `${PDF_OUTPUT_PATH}/${configuration.cvPdfName}`,
-  );
+    const documents = await makePreview(
+      browser,
+      `${APPLICATION_URL}${locale}`,
+      `${OUTPUT_PATH}/${locale}/preview.png`,
+    );
+
+    for (const document of documents) {
+      await makePDF(
+        browser,
+        `${APPLICATION_URL}${locale}#${document.fragment}`,
+        `${OUTPUT_PATH}/${locale}/${document.pdfName}`,
+      );
+    }
+  }
 
   await browser.close();
 

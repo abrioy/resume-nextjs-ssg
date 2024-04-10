@@ -8,6 +8,50 @@ export const configuration: Configuration = new Configuration({
   variants: [
     {
       locale: {
+        label: "English",
+        url: "en",
+        navigatorLanguage: /en/,
+        htmlLang: "en",
+        openGraph: "en_UK",
+      },
+      infos: {
+        anonymousName: "API",
+        firstName: "André",
+        lastName: "Pinot",
+        jobTitle: "House cat",
+        pageTitle: (variant) =>
+          `${variant.infos.firstName()} ${variant.infos.lastName()} - ${variant.infos.jobTitle()}`,
+        pageDesc: (variant) =>
+          `Resume of ${variant.infos.firstName()} ${variant.infos.lastName()}`,
+        fullName: (variant) =>
+          `${variant.infos.firstName()} ${variant.infos.lastName()}`,
+        location: "Rennes",
+      },
+      picture: {
+        url: "PINOT_Andre.jpg",
+        type: "image/jpeg",
+        alt: (variant) =>
+          `Photo of ${variant.infos.firstName()} ${variant.infos.lastName()}`,
+      },
+      socials: {
+        linkedIn: "linkedin.com/in/andrépinot",
+        github: "github.com/andrépinot",
+        gitlab: "gitlab.com/andrépinot",
+      },
+      documents: [
+        {
+          singlePage: true,
+          headerTitle: "CV",
+          pdfName: "CV_PINOT_Andre_house_cat.pdf",
+          hoverDownload: "Download resume",
+          hoverPrint: "Print resume",
+          component: Resume,
+        },
+      ],
+    },
+
+    {
+      locale: {
         label: "Français",
         url: "fr",
         navigatorLanguage: /fr/,
