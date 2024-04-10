@@ -8,15 +8,15 @@ import { mkdirSync, writeFileSync } from "fs";
 import { Constant } from "@/src/model/constant.model";
 import { copyFileSync, readdirSync } from "node:fs";
 
-const basePath = process.argv[2] || "";
+const basePath = process.argv[2] ? `/${process.argv[2]}` : "";
 
 const BUILD_PATH = "./out";
 const OUTPUT_PATH = `${BUILD_PATH}/assets`;
 const PORT = 3001;
-const APPLICATION_URL = `http://localhost:${PORT}/${basePath}`;
+const APPLICATION_URL = `http://localhost:${PORT}${basePath}`;
 
 function serveApplication() {
-  const basePathRegex = new RegExp(`^/${basePath}(/|$)`);
+  const basePathRegex = new RegExp(`^/?${basePath}(/|$)`);
   const server = http.createServer((request, response) => {
     request.url = request.url?.replace(basePathRegex, "/");
     return serveHandler(request, response, {
@@ -118,7 +118,7 @@ async function makePreview(
 
     const documents = await makePreview(
       browser,
-      `${APPLICATION_URL}${locale}`,
+      `${APPLICATION_URL}/${locale}`,
       `${OUTPUT_PATH}/${locale}/preview.png`,
     );
 
@@ -133,7 +133,7 @@ async function makePreview(
     for (const document of documents) {
       await makePDF(
         browser,
-        `${APPLICATION_URL}${locale}#${document.fragment}`,
+        `${APPLICATION_URL}/${locale}#${document.fragment}`,
         `${OUTPUT_PATH}/${locale}/${document.pdfName}`,
       );
     }
