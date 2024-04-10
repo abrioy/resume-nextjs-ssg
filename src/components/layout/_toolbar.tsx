@@ -83,7 +83,7 @@ export default function Toolbar({
           {variant.documents.map((resume, index) => (
             <li key={index}>
               <a
-                href={`${variant.baseUrl}/${resume.pdfName}`}
+                href={`${variant.baseUrlAssets}/${resume.pdfName}`}
                 target="_self"
                 type="application/pdf"
                 download={resume.pdfName}
@@ -102,7 +102,7 @@ export default function Toolbar({
           {variant.documents.map((resume, index) => (
             <li key={index}>
               <a
-                href={`${variant.baseUrl}/${resume.pdfName}`}
+                href={`${variant.baseUrlAssets}/${resume.pdfName}`}
                 target="_blank"
                 onClick={getClickHandler(`${index}`)}
               >

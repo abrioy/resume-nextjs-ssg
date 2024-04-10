@@ -72,8 +72,8 @@ export class ConfigurationVariant {
     return `${Constant.baseUrl}`;
   }
 
-  get baseUrl(): string {
-    return `${this.baseUrlRoot}/${this.locale.url}`;
+  get baseUrlAssets(): string {
+    return `${this.baseUrlRoot}/assets/${this.locale.url}`;
   }
 
   constructor(private conf: ConfigurationVariantInit) {}

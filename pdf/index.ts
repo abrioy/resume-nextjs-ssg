@@ -6,12 +6,12 @@ import serveHandler from "serve-handler";
 import * as http from "http";
 import { mkdirSync, writeFileSync } from "fs";
 import { Constant } from "@/src/model/constant.model";
-import { readdirSync } from "node:fs";
+import { copyFileSync, readdirSync } from "node:fs";
 
 const basePath = process.argv[2] || "";
 
 const BUILD_PATH = "./out";
-const OUTPUT_PATH = `${BUILD_PATH}`;
+const OUTPUT_PATH = `${BUILD_PATH}/assets`;
 const PORT = 3001;
 const APPLICATION_URL = `http://localhost:${PORT}/${basePath}`;
 
@@ -107,11 +107,12 @@ async function makePreview(
     headless: "new",
   });
 
-  const locales = readdirSync(OUTPUT_PATH)
+  const locales = readdirSync(BUILD_PATH)
     .filter((file) => file.endsWith(".html"))
     .map((file) => file.replaceAll(/.html$/g, ""))
     .filter((file) => file !== "index" && file !== "404");
 
+  let hasCopiedFirstPreview = false;
   for (const locale of locales) {
     mkdirSync(`${OUTPUT_PATH}/${locale}`, { recursive: true });
 
@@ -120,6 +121,14 @@ async function makePreview(
       `${APPLICATION_URL}${locale}`,
       `${OUTPUT_PATH}/${locale}/preview.png`,
     );
+
+    if (!hasCopiedFirstPreview) {
+      copyFileSync(
+        `${OUTPUT_PATH}/${locale}/preview.png`,
+        `${BUILD_PATH}/preview.png`,
+      );
+      hasCopiedFirstPreview = true;
+    }
 
     for (const document of documents) {
       await makePDF(

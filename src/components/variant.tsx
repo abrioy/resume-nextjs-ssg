@@ -61,7 +61,10 @@ export default function Variant({
           content={variant.infos.lastName()}
         />
 
-        <meta property="og:image" content={`${variant.baseUrl}/preview.png`} />
+        <meta
+          property="og:image"
+          content={`${variant.baseUrlAssets}/preview.png`}
+        />
         <meta property="og:image:type" content="image/png" />
         <meta
           property="og:image:width"
