@@ -104,7 +104,7 @@ async function makePreview(
   const server = serveApplication();
 
   const browser = await puppeteer.launch({
-    headless: "new",
+    headless: true,
   });
 
   const locales = readdirSync(BUILD_PATH)
